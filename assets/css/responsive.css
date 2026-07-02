@@ -1,0 +1,8 @@
+@media(max-width:768px){
+  .welcome-hero{padding:1.25rem;text-align:center;justify-content:center}
+  .page-header{text-align:center;justify-content:center}
+}
+@media(max-width:480px){
+  .sl-brand{font-size:1.05rem}
+  .sl-brand i{width:32px;height:32px}
+}

@@ -1,0 +1,9 @@
+/* Dashboard-specific tweaks */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
+.welcome-hero{
+  background:linear-gradient(135deg,var(--sl-primary),var(--sl-primary-dark));
+  color:#fff;border-radius:var(--sl-radius);padding:1.75rem;margin-bottom:1.5rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.welcome-hero h3{margin:0;font-weight:600}
+.welcome-hero p{margin:.25rem 0 0;opacity:.9}

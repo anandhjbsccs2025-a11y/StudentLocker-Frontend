@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edit Profile - Student Locker</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet"><link href="assets/css/dashboard.css" rel="stylesheet">
+</head><body>
+<div data-layout="student">
+  <div class="page-header"><div><h2>Edit Profile</h2><p>Update your details</p></div></div>
+  <form id="editForm" class="sl-card">
+    <div class="row g-3">
+      <div class="col-md-6"><label class="form-label">Full Name</label><input name="name" class="form-control" required></div>
+      <div class="col-md-6"><label class="form-label">Register Number</label><input name="reg" class="form-control" required></div>
+      <div class="col-md-6"><label class="form-label">Department</label>
+        <select name="dept" class="form-select"><option>CSE</option><option>ECE</option><option>EEE</option><option>MECH</option><option>CIVIL</option><option>IT</option></select></div>
+      <div class="col-md-6"><label class="form-label">Class</label><input name="cls" class="form-control"></div>
+      <div class="col-md-6"><label class="form-label">UMIS Number</label><input name="umis" class="form-control"></div>
+      <div class="col-md-6"><label class="form-label">Mobile</label><input name="mob" class="form-control" maxlength="10"></div>
+      <div class="col-12"><label class="form-label">Email</label><input name="email" type="email" class="form-control" required></div>
+    </div>
+    <div class="mt-4 d-flex gap-2">
+      <button class="btn btn-primary" type="submit">Save Changes</button>
+      <a href="profile.html" class="btn btn-outline-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+<script src="assets/js/app.js"></script><script src="assets/js/layout.js"></script><script src="assets/js/validation.js"></script>
+<script>
+  const f = document.getElementById('editForm');
+  const p = JSON.parse(localStorage.getItem('sl_profile')||'{}');
+  const u = JSON.parse(localStorage.getItem('sl_user')||'{}');
+  f.name.value = p.name || u.name || '';
+  f.email.value = p.email || u.email || '';
+  ['reg','dept','cls','umis','mob'].forEach(k=>{ if(p[k]) f[k].value = p[k] });
+  f.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    if(!isEmail(f.email.value)) return slToast('Invalid email','error');
+    const data = Object.fromEntries(new FormData(f).entries());
+    localStorage.setItem('sl_profile', JSON.stringify(data));
+    const u2 = JSON.parse(localStorage.getItem('sl_user')||'{}'); u2.name = data.name; u2.email = data.email;
+    localStorage.setItem('sl_user', JSON.stringify(u2));
+    slToast('Profile updated','success');
+    setTimeout(()=>location.href='profile.html',600);
+  });
+</script>
+</body></html>
