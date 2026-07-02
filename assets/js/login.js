@@ -4,8 +4,10 @@ function handleLogin(formId, role){
   if(!form) return;
   form.addEventListener('submit', (e)=>{
     e.preventDefault();
-    const email = form.email.value.trim();
-    const pw = form.password.value;
+    const emailEl = form.querySelector('[name="email"]');
+    const pwEl = form.querySelector('[name="password"]');
+    const email = (emailEl?.value || '').trim();
+    const pw = pwEl?.value || '';
     if(!isEmail(email)) return slToast('Please enter a valid email', 'error');
     if(pw.length < 6) return slToast('Password must be at least 6 characters', 'error');
     slLoader(true);
@@ -22,7 +24,7 @@ function handleLogin(formId, role){
 function handleRegister(formId){
   const form = document.getElementById(formId);
   if(!form) return;
-  const pw = form.password;
+  const pw = form.querySelector('input[name="password"]') || form.password;
   const meter = form.querySelector('.pw-meter');
   if(pw && meter) bindStrengthMeter(pw, meter);
   form.addEventListener('submit', (e)=>{
