@@ -7,7 +7,6 @@ const STUDENT_MENU = [
   ['online-certificates.html','fa-cloud','Online Certificates'],
   ['offline-certificates.html','fa-folder-open','Offline Certificates'],
   ['academic-certificates.html','fa-graduation-cap','Academic Certificates'],
-  ['upload-document.html','fa-upload','Upload Document'],
   ['change-password.html','fa-lock','Change Password'],
   ['change-email.html','fa-envelope','Change Email'],
   ['settings.html','fa-cog','Settings'],

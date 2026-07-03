@@ -2,6 +2,16 @@
 function renderDocPage(category, tiles){
   const grid = document.getElementById('docGrid');
   const docs = getDocs().filter(d=>d.category===category);
+
+  // Document permissions
+  // Personal documents: upload, view and download are all allowed.
+  // (This page implements View + Download; Upload UI is handled elsewhere.)
+  const canUpload = category === 'personal';
+  const canView = category === 'personal';
+  const canDownload = category === 'personal';
+
+
+
   grid.innerHTML = tiles.map(t=>{
     const found = docs.find(d=>d.title===t.title);
     return `
@@ -10,16 +20,24 @@ function renderDocPage(category, tiles){
         <h5>${t.title}</h5>
         <p class="text-muted small mb-0">${found?('Uploaded: '+new Date(found.uploaded).toLocaleDateString()):'Not uploaded yet'}</p>
         <div class="actions">
-          <a href="upload-document.html?cat=${category}&title=${encodeURIComponent(t.title)}" class="btn btn-primary"><i class="fas fa-upload me-1"></i>Upload</a>
+          ${found?``:`<span class="text-muted small">Not uploaded yet</span>`}
+
+
           ${found?`
-            <button class="btn btn-outline-primary" onclick="previewDoc(${found.id})"><i class="fas fa-eye me-1"></i>View</button>
-            <button class="btn btn-outline-primary" onclick="downloadDoc(${found.id})"><i class="fas fa-download me-1"></i>Download</button>
+            ${canView ? `
+              <button class="btn btn-outline-primary" onclick="previewDoc(${found.id})"><i class="fas fa-eye me-1"></i>View</button>
+            ` : ''}
+            ${canDownload ? `
+              <button class="btn btn-outline-primary" onclick="downloadDoc(${found.id})"><i class="fas fa-download me-1"></i>Download</button>
+            ` : ''}
             <button class="btn btn-outline-danger" onclick="removeDoc(${found.id})"><i class="fas fa-trash me-1"></i>Delete</button>
           `:''}
+
         </div>
       </div>`;
   }).join('');
 }
+
 function previewDoc(id){
   const d = getDocs().find(x=>x.id===id); if(!d) return;
   const body = document.getElementById('previewBody');
