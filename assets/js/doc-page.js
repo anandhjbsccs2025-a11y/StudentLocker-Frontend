@@ -10,7 +10,7 @@ function renderDocPage(category, tiles){
         <h5>${t.title}</h5>
         <p class="text-muted small mb-0">${found?('Uploaded: '+new Date(found.uploaded).toLocaleDateString()):'Not uploaded yet'}</p>
         <div class="actions">
-          <a href="upload-document.html?cat=${category}&title=${encodeURIComponent(t.title)}" class="btn btn-primary"><i class="fas fa-upload me-1"></i>Upload</a>
+          ${found?``:`<span class="text-muted small">Not uploaded yet</span>`}
           ${found?`
             <button class="btn btn-outline-primary" onclick="previewDoc(${found.id})"><i class="fas fa-eye me-1"></i>View</button>
             <button class="btn btn-outline-primary" onclick="downloadDoc(${found.id})"><i class="fas fa-download me-1"></i>Download</button>
